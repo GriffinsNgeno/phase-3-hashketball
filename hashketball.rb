@@ -127,3 +127,68 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored name
+  all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  chosen = all_players.find {|player| player[:player_name] == name}
+  chosen[:points]
+end
+
+def shoe_size name
+  all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  chosen = all_players.find {|player| player[:player_name] == name}
+  chosen[:shoe]
+end
+
+def team_colors team_name
+  home_teams = game_hash[:home]
+  away_teams = game_hash[:away]
+
+  first = home_teams[:team_name]
+  second = away_teams[:team_name]
+
+  if team_name == first
+    home_teams[:colors]
+  elsif team_name == second
+    away_teams[:colors]
+  end
+end
+
+def team_names
+  teams = []
+  home = game_hash[:home][:team_name]
+  teams.push(home)
+  away = game_hash[:away][:team_name]
+  teams.push(away)
+end
+
+def player_numbers team_name
+
+  home_teams = game_hash[:home]
+  away_teams = game_hash[:away]
+
+  first = home_teams[:team_name]
+  second = away_teams[:team_name]
+  
+  if team_name == first
+    players = home_teams[:players]
+    numbers = players.collect {|player| player[:number]}
+    numbers
+  elsif team_name == second
+    players = away_teams[:players]
+    numbers = players.collect {|player| player[:number]}
+    numbers
+  end
+end
+
+def player_stats(player_name)
+  all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  chosen = all_players.find {|player| player[:player_name] == player_name}
+  chosen
+end
+
+def big_shoe_rebounds
+  all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  shoe_size = all_players.max_by {|player| player[:shoe]}
+  shoe_size[:rebounds]
+end
+
